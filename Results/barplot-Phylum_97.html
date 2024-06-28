@@ -1,0 +1,554 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>barplot-Phylum_97</title>
+      
+      
+        
+          
+        <style>
+            table.panel-df {
+                    margin-left: auto;
+                    margin-right: auto;
+                    border: none;
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    color: black;
+                    font-size: 12px;
+                    table-layout: fixed;
+                    width: 100%;
+                }
+
+                .panel-df tr, .panel-df th, .panel-df td {
+                    text-align: right;
+                    vertical-align: middle;
+                    padding: 0.5em 0.5em !important;
+                    line-height: normal;
+                    white-space: normal;
+                    max-width: none;
+                    border: none;
+                }
+
+                .panel-df tbody {
+                    display: table-row-group;
+                    vertical-align: middle;
+                    border-color: inherit;
+                }
+
+                .panel-df tbody tr:nth-child(odd) {
+                    background: #f5f5f5;
+                }
+
+                .panel-df thead {
+                    border-bottom: 1px solid black;
+                    vertical-align: bottom;
+                }
+
+                .panel-df tr:hover {
+                    background: lightblue !important;
+                    cursor: pointer;
+                }
+
+        </style>
+        <style>
+            .json-formatter-row {
+                  font-family: monospace;
+                }
+                .json-formatter-row,
+                .json-formatter-row a,
+                .json-formatter-row a:hover {
+                  color: black;
+                  text-decoration: none;
+                }
+                .json-formatter-row .json-formatter-row {
+                  margin-left: 1rem;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty {
+                  opacity: 0.5;
+                  margin-left: 1rem;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty:after {
+                  display: none;
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-object:after {
+                  content: "No properties";
+                }
+                .json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-array:after {
+                  content: "[]";
+                }
+                .json-formatter-row .json-formatter-string,
+                .json-formatter-row .json-formatter-stringifiable {
+                  color: green;
+                  white-space: pre;
+                  word-wrap: break-word;
+                }
+                .json-formatter-row .json-formatter-number {
+                  color: blue;
+                }
+                .json-formatter-row .json-formatter-boolean {
+                  color: red;
+                }
+                .json-formatter-row .json-formatter-null {
+                  color: #855A00;
+                }
+                .json-formatter-row .json-formatter-undefined {
+                  color: #ca0b69;
+                }
+                .json-formatter-row .json-formatter-function {
+                  color: #FF20ED;
+                }
+                .json-formatter-row .json-formatter-date {
+                  background-color: rgba(0, 0, 0, 0.05);
+                }
+                .json-formatter-row .json-formatter-url {
+                  text-decoration: underline;
+                  color: blue;
+                  cursor: pointer;
+                }
+                .json-formatter-row .json-formatter-bracket {
+                  color: blue;
+                }
+                .json-formatter-row .json-formatter-key {
+                  color: #00008B;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-row .json-formatter-toggler-link {
+                  cursor: pointer;
+                }
+                .json-formatter-row .json-formatter-toggler {
+                  line-height: 1.2rem;
+                  font-size: 0.7rem;
+                  vertical-align: middle;
+                  opacity: 0.6;
+                  cursor: pointer;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-row .json-formatter-toggler:after {
+                  display: inline-block;
+                  transition: transform 100ms ease-in;
+                  content: "\25BA";
+                }
+                .json-formatter-row > a > .json-formatter-preview-text {
+                  opacity: 0;
+                  transition: opacity 0.15s ease-in;
+                  font-style: italic;
+                }
+                .json-formatter-row:hover > a > .json-formatter-preview-text {
+                  opacity: 0.6;
+                }
+                .json-formatter-row.json-formatter-open > .json-formatter-toggler-link .json-formatter-toggler:after {
+                  transform: rotate(90deg);
+                }
+                .json-formatter-row.json-formatter-open > .json-formatter-children:after {
+                  display: inline-block;
+                }
+                .json-formatter-row.json-formatter-open > a > .json-formatter-preview-text {
+                  display: none;
+                }
+                .json-formatter-row.json-formatter-open.json-formatter-empty:after {
+                  display: block;
+                }
+                .json-formatter-dark.json-formatter-row {
+                  font-family: monospace;
+                }
+                .json-formatter-dark.json-formatter-row,
+                .json-formatter-dark.json-formatter-row a,
+                .json-formatter-dark.json-formatter-row a:hover {
+                  color: white;
+                  text-decoration: none;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-row {
+                  margin-left: 1rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty {
+                  opacity: 0.5;
+                  margin-left: 1rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty:after {
+                  display: none;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-object:after {
+                  content: "No properties";
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-children.json-formatter-empty.json-formatter-array:after {
+                  content: "[]";
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-string,
+                .json-formatter-dark.json-formatter-row .json-formatter-stringifiable {
+                  color: #31F031;
+                  white-space: pre;
+                  word-wrap: break-word;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-number {
+                  color: #66C2FF;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-boolean {
+                  color: #EC4242;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-null {
+                  color: #EEC97D;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-undefined {
+                  color: #ef8fbe;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-function {
+                  color: #FD48CB;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-date {
+                  background-color: rgba(255, 255, 255, 0.05);
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-url {
+                  text-decoration: underline;
+                  color: #027BFF;
+                  cursor: pointer;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-bracket {
+                  color: #9494FF;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-key {
+                  color: #23A0DB;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler-link {
+                  cursor: pointer;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler {
+                  line-height: 1.2rem;
+                  font-size: 0.7rem;
+                  vertical-align: middle;
+                  opacity: 0.6;
+                  cursor: pointer;
+                  padding-right: 0.2rem;
+                }
+                .json-formatter-dark.json-formatter-row .json-formatter-toggler:after {
+                  display: inline-block;
+                  transition: transform 100ms ease-in;
+                  content: "\25BA";
+                }
+                .json-formatter-dark.json-formatter-row > a > .json-formatter-preview-text {
+                  opacity: 0;
+                  transition: opacity 0.15s ease-in;
+                  font-style: italic;
+                }
+                .json-formatter-dark.json-formatter-row:hover > a > .json-formatter-preview-text {
+                  opacity: 0.6;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > .json-formatter-toggler-link .json-formatter-toggler:after {
+                  transform: rotate(90deg);
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > .json-formatter-children:after {
+                  display: inline-block;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open > a > .json-formatter-preview-text {
+                  display: none;
+                }
+                .json-formatter-dark.json-formatter-row.json-formatter-open.json-formatter-empty:after {
+                  display: block;
+                }
+
+        </style>
+        <style>
+            .codehilite .hll { background-color: #ffffcc }
+                .codehilite  { background: #f8f8f8; }
+                .codehilite .c { color: #408080; font-style: italic } /* Comment */
+                .codehilite .err { border: 1px solid #FF0000 } /* Error */
+                .codehilite .k { color: #008000; font-weight: bold } /* Keyword */
+                .codehilite .o { color: #666666 } /* Operator */
+                .codehilite .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+                .codehilite .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+                .codehilite .cp { color: #BC7A00 } /* Comment.Preproc */
+                .codehilite .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+                .codehilite .c1 { color: #408080; font-style: italic } /* Comment.Single */
+                .codehilite .cs { color: #408080; font-style: italic } /* Comment.Special */
+                .codehilite .gd { color: #A00000 } /* Generic.Deleted */
+                .codehilite .ge { font-style: italic } /* Generic.Emph */
+                .codehilite .gr { color: #FF0000 } /* Generic.Error */
+                .codehilite .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+                .codehilite .gi { color: #00A000 } /* Generic.Inserted */
+                .codehilite .go { color: #888888 } /* Generic.Output */
+                .codehilite .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+                .codehilite .gs { font-weight: bold } /* Generic.Strong */
+                .codehilite .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+                .codehilite .gt { color: #0044DD } /* Generic.Traceback */
+                .codehilite .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+                .codehilite .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+                .codehilite .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+                .codehilite .kp { color: #008000 } /* Keyword.Pseudo */
+                .codehilite .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+                .codehilite .kt { color: #B00040 } /* Keyword.Type */
+                .codehilite .m { color: #666666 } /* Literal.Number */
+                .codehilite .s { color: #BA2121 } /* Literal.String */
+                .codehilite .na { color: #7D9029 } /* Name.Attribute */
+                .codehilite .nb { color: #008000 } /* Name.Builtin */
+                .codehilite .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+                .codehilite .no { color: #880000 } /* Name.Constant */
+                .codehilite .nd { color: #AA22FF } /* Name.Decorator */
+                .codehilite .ni { color: #999999; font-weight: bold } /* Name.Entity */
+                .codehilite .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+                .codehilite .nf { color: #0000FF } /* Name.Function */
+                .codehilite .nl { color: #A0A000 } /* Name.Label */
+                .codehilite .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+                .codehilite .nt { color: #008000; font-weight: bold } /* Name.Tag */
+                .codehilite .nv { color: #19177C } /* Name.Variable */
+                .codehilite .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+                .codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+                .codehilite .mb { color: #666666 } /* Literal.Number.Bin */
+                .codehilite .mf { color: #666666 } /* Literal.Number.Float */
+                .codehilite .mh { color: #666666 } /* Literal.Number.Hex */
+                .codehilite .mi { color: #666666 } /* Literal.Number.Integer */
+                .codehilite .mo { color: #666666 } /* Literal.Number.Oct */
+                .codehilite .sa { color: #BA2121 } /* Literal.String.Affix */
+                .codehilite .sb { color: #BA2121 } /* Literal.String.Backtick */
+                .codehilite .sc { color: #BA2121 } /* Literal.String.Char */
+                .codehilite .dl { color: #BA2121 } /* Literal.String.Delimiter */
+                .codehilite .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+                .codehilite .s2 { color: #BA2121 } /* Literal.String.Double */
+                .codehilite .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+                .codehilite .sh { color: #BA2121 } /* Literal.String.Heredoc */
+                .codehilite .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+                .codehilite .sx { color: #008000 } /* Literal.String.Other */
+                .codehilite .sr { color: #BB6688 } /* Literal.String.Regex */
+                .codehilite .s1 { color: #BA2121 } /* Literal.String.Single */
+                .codehilite .ss { color: #19177C } /* Literal.String.Symbol */
+                .codehilite .bp { color: #008000 } /* Name.Builtin.Pseudo */
+                .codehilite .fm { color: #0000FF } /* Name.Function.Magic */
+                .codehilite .vc { color: #19177C } /* Name.Variable.Class */
+                .codehilite .vg { color: #19177C } /* Name.Variable.Global */
+                .codehilite .vi { color: #19177C } /* Name.Variable.Instance */
+                .codehilite .vm { color: #19177C } /* Name.Variable.Magic */
+                .codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+                .markdown h1 { margin-block-start: 0.34em }
+                .markdown h2 { margin-block-start: 0.42em }
+                .markdown h3 { margin-block-start: 0.5em }
+                .markdown h4 { margin-block-start: 0.67em }
+                .markdown h5 { margin-block-start: 0.84em }
+                .markdown h6 { margin-block-start: 1.17em }
+                .markdown ul { padding-inline-start: 2em }
+                .markdown ol { padding-inline-start: 2em }
+                .markdown strong { font-weight: 600 }
+                .markdown a { color: -webkit-link }
+                .markdown a { color: -moz-hyperlinkText }
+
+        </style>
+        <style>
+            .panel-widget-box {
+                	min-height: 20px;
+                	background-color: #f5f5f5;
+                	border: 1px solid #e3e3e3 !important;
+                	border-radius: 4px;
+                	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+                	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+                	overflow-x: hidden;
+                	overflow-y: hidden;
+                }
+
+                .scrollable {
+                  overflow: scroll;
+                }
+
+                progress {
+                	appearance: none;
+                	-moz-appearance: none;
+                	-webkit-appearance: none;
+
+                	border: none;
+                	height: 20px;
+                	background-color: whiteSmoke;
+                	border-radius: 3px;
+                	box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+                	color: royalblue;
+                	position: relative;
+                	margin: 0 0 1.5em;
+                }
+
+                progress[value]::-webkit-progress-bar {
+                	background-color: whiteSmoke;
+                	border-radius: 3px;
+                	box-shadow: 0 2px 3px rgba(0,0,0,.5) inset;
+                }
+
+                progress[value]::-webkit-progress-value {
+                	position: relative;
+
+                	background-size: 35px 20px, 100% 100%, 100% 100%;
+                	border-radius:3px;
+                }
+
+                progress.active:not([value])::before {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress[value]::-moz-progress-bar {
+                	background-size: 35px 20px, 100% 100%, 100% 100%;
+                	border-radius:3px;
+                }
+
+                progress:not([value])::-moz-progress-bar {
+                	border-radius:3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+
+                }
+
+                progress.active:not([value])::-moz-progress-bar {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress.active:not([value])::-webkit-progress-bar {
+                	background-position: 10%;
+                	animation-name: stripes;
+                	animation-duration: 3s;
+                	animation-timing-function: linear;
+                	animation-iteration-count: infinite;
+                }
+
+                progress.primary[value]::-webkit-progress-value { background-color: #007bff; }
+                progress.primary:not([value])::before { background-color: #007bff; }
+                progress.primary:not([value])::-webkit-progress-bar { background-color: #007bff; }
+                progress.primary::-moz-progress-bar { background-color: #007bff; }
+
+                progress.secondary[value]::-webkit-progress-value { background-color: #6c757d; }
+                progress.secondary:not([value])::before { background-color: #6c757d; }
+                progress.secondary:not([value])::-webkit-progress-bar { background-color: #6c757d; }
+                progress.secondary::-moz-progress-bar { background-color: #6c757d; }
+
+                progress.success[value]::-webkit-progress-value { background-color: #28a745; }
+                progress.success:not([value])::before { background-color: #28a745; }
+                progress.success:not([value])::-webkit-progress-bar { background-color: #28a745; }
+                progress.success::-moz-progress-bar { background-color: #28a745; }
+
+                progress.danger[value]::-webkit-progress-value { background-color: #dc3545; }
+                progress.danger:not([value])::before { background-color: #dc3545; }
+                progress.danger:not([value])::-webkit-progress-bar { background-color: #dc3545; }
+                progress.danger::-moz-progress-bar { background-color: #dc3545; }
+
+                progress.warning[value]::-webkit-progress-value { background-color: #ffc107; }
+                progress.warning:not([value])::before { background-color: #ffc107; }
+                progress.warning:not([value])::-webkit-progress-bar { background-color: #ffc107; }
+                progress.warning::-moz-progress-bar { background-color: #ffc107; }
+
+                progress.info[value]::-webkit-progress-value { background-color: #17a2b8; }
+                progress.info:not([value])::before { background-color: #17a2b8; }
+                progress.info:not([value])::-webkit-progress-bar { background-color: #17a2b8; }
+                progress.info::-moz-progress-bar { background-color: #17a2b8; }
+
+                progress.light[value]::-webkit-progress-value { background-color: #f8f9fa; }
+                progress.light:not([value])::before { background-color: #f8f9fa; }
+                progress.light:not([value])::-webkit-progress-bar { background-color: #f8f9fa; }
+                progress.light::-moz-progress-bar { background-color: #f8f9fa; }
+
+                progress.dark[value]::-webkit-progress-value { background-color: #343a40; }
+                progress.dark:not([value])::-webkit-progress-bar { background-color: #343a40; }
+                progress.dark:not([value])::before { background-color: #343a40; }
+                progress.dark::-moz-progress-bar { background-color: #343a40; }
+
+                progress:not([value])::-webkit-progress-bar {
+                	border-radius: 3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+                }
+                progress:not([value])::before {
+                	content:" ";
+                	position:absolute;
+                	height: 20px;
+                	top:0;
+                	left:0;
+                	right:0;
+                	bottom:0;
+                	border-radius: 3px;
+                	background:
+                	linear-gradient(-45deg, transparent 33%, rgba(0, 0, 0, 0.2) 33%, rgba(0, 0, 0, 0.2) 66%, transparent 66%) left/2.5em 1.5em;
+                }
+
+                @keyframes stripes {
+                  from {background-position: 0%}
+                  to {background-position: 100%}
+                }
+
+        </style>
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.1.1.min.js" integrity="sha384-kLr4fYcqcSpbuI95brIH3vnnYCquzzSxHPU6XGQCIkQRGJwhg0StNbj1eegrHs12" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="975e09ee-92cf-4358-9001-b14f99f78abb" data-root-id="1001"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="1188">
+          {"e1e3a581-b029-407a-91ac-4cc7433c2d95":{"roots":{"references":[{"attributes":{"label":{"field":"Phylum"},"renderers":[{"id":"1042"}]},"id":"1053","type":"LegendItem"},{"attributes":{"below":[{"id":"1015"}],"center":[{"id":"1018"},{"id":"1021"},{"id":"1052"}],"left":[{"id":"1019"}],"margin":null,"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"min_border_top":10,"plot_height":320,"plot_width":800,"renderers":[{"id":"1042"}],"right":[{"id":"1052"}],"sizing_mode":"fixed","title":{"id":"1007"},"toolbar":{"id":"1028"},"x_range":{"id":"1003"},"x_scale":{"id":"1011"},"y_range":{"id":"1004"},"y_scale":{"id":"1013"}},"id":"1006","subtype":"Figure","type":"Plot"},{"attributes":{"source":{"id":"1036"}},"id":"1043","type":"CDSView"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer01504","sizing_mode":"stretch_width"},"id":"1002","type":"Spacer"},{"attributes":{"glyph_height":12,"items":[{"id":"1053"}],"label_height":12,"label_text_font_size":"12px","location":[30,0],"spacing":0},"id":"1052","type":"Legend"},{"attributes":{"axis":{"id":"1019"},"dimension":1,"grid_line_color":null,"ticker":null},"id":"1021","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"field":"Phylum","transform":{"id":"1035"}},"height":{"value":0.8},"left":{"field":"bottom"},"line_alpha":{"value":0.1},"right":{"field":"top"},"y":{"field":"Group"}},"id":"1040","type":"HBar"},{"attributes":{"data":{"Group":["HYb.2_R1","MDb.1_R1","HYb.1_R1","HYb.3_R1","DXa.1_R1","HYa.1_R1","MDb.2_R1","MDa.1_R1","HYa.2_R1","DXb.3_R1","DXb.1_R1","HYa.3_R1","MDb.3_R1","DXb.2_R1","DXa.3_R1","DXa.2_R1","HYa.3_R1","DXa.2_R1","HYb.1_R1","MDa.1_R1","HYa.2_R1","DXb.1_R1","MDb.2_R1","HYa.1_R1","DXb.2_R1","MDb.3_R1","DXb.3_R1","HYb.2_R1","HYb.3_R1","DXa.1_R1","MDb.1_R1","DXa.3_R1","HYb.2_R1","HYa.3_R1","HYa.2_R1","HYa.1_R1","DXb.3_R1","DXb.2_R1","HYb.1_R1","DXb.1_R1","DXa.3_R1","HYb.3_R1","DXa.1_R1","MDb.3_R1","MDa.1_R1","MDb.2_R1","MDb.1_R1","DXa.2_R1","DXa.1_R1","MDb.3_R1","DXb.3_R1","HYa.1_R1","MDb.2_R1","HYa.2_R1","DXb.1_R1","MDb.1_R1","HYa.3_R1","DXb.2_R1","MDa.1_R1","HYb.2_R1","DXa.2_R1","HYb.1_R1","HYb.3_R1","DXa.3_R1","HYa.3_R1","DXb.2_R1","HYb.2_R1","MDb.3_R1","HYb.3_R1","DXa.1_R1","DXb.3_R1","MDb.2_R1","DXa.3_R1","HYa.1_R1","HYb.1_R1","MDa.1_R1","MDb.1_R1","DXa.2_R1","HYa.2_R1","DXb.1_R1","MDa.1_R1","MDb.2_R1","MDb.3_R1","HYa.2_R1","HYb.3_R1","DXb.3_R1","HYa.3_R1","MDb.1_R1","HYb.2_R1","HYa.1_R1","HYb.1_R1","DXa.1_R1","DXb.1_R1","DXa.3_R1","DXb.2_R1","DXa.2_R1","DXb.1_R1","DXa.1_R1","MDb.2_R1","HYb.3_R1","HYa.3_R1","DXb.3_R1","HYa.2_R1","HYb.2_R1","DXa.2_R1","MDb.1_R1","HYa.1_R1","DXb.2_R1","DXa.3_R1","MDb.3_R1","HYb.1_R1","DXb.2_R1","HYb.1_R1","HYb.3_R1","HYa.1_R1","DXa.1_R1","DXa.2_R1","MDb.1_R1","DXb.3_R1","HYa.3_R1","MDb.3_R1","MDb.2_R1","HYb.2_R1","MDa.1_R1","DXb.1_R1","HYa.2_R1","DXa.3_R1","DXa.3_R1","HYb.3_R1","HYa.1_R1","DXa.1_R1","DXa.2_R1","HYb.2_R1","MDb.3_R1","MDa.1_R1","HYb.1_R1","HYa.3_R1","DXb.3_R1","MDb.1_R1","DXb.1_R1","DXb.2_R1","MDb.2_R1","HYa.2_R1","DXb.1_R1","HYa.2_R1","MDb.1_R1","DXb.2_R1","DXa.1_R1","HYa.1_R1","MDb.3_R1","MDa.1_R1","MDb.2_R1","HYb.1_R1","HYb.3_R1","DXb.3_R1","HYb.2_R1","MDb.3_R1","DXb.2_R1","HYb.2_R1","HYa.2_R1","MDb.1_R1","HYb.1_R1","DXa.3_R1","DXa.1_R1","HYa.1_R1","DXa.2_R1","MDa.1_R1","HYb.3_R1","MDb.2_R1","DXb.1_R1","HYa.3_R1","HYb.3_R1","HYa.1_R1","HYa.2_R1","HYb.2_R1","HYb.1_R1","HYa.3_R1","HYb.3_R1","HYa.3_R1","HYa.2_R1","HYb.2_R1","MDb.1_R1","MDb.3_R1","MDb.2_R1","MDa.1_R1","MDa.1_R1","DXa.2_R1","MDa.1_R1","HYb.3_R1","HYb.3_R1","DXa.2_R1","HYb.3_R1","HYb.3_R1","HYb.3_R1","MDa.1_R1","HYb.3_R1","HYb.3_R1","HYb.3_R1","DXa.2_R1","DXa.2_R1","DXa.2_R1","DXa.2_R1","HYb.3_R1","MDa.1_R1","DXb.2_R1","MDa.1_R1","MDb.2_R1","MDb.2_R1","MDb.2_R1","MDb.2_R1","MDb.2_R1","MDb.2_R1","DXa.1_R1","DXa.1_R1","MDb.3_R1","DXa.1_R1","DXa.1_R1","MDb.3_R1","MDb.3_R1","DXa.1_R1","MDb.3_R1","MDb.3_R1","MDb.3_R1","MDb.3_R1","MDb.3_R1","MDb.3_R1","DXa.1_R1","MDb.2_R1","MDa.1_R1","MDb.2_R1","DXa.1_R1","MDa.1_R1","MDa.1_R1","MDa.1_R1","DXa.1_R1","MDb.1_R1","DXa.1_R1","DXa.1_R1","MDb.1_R1","MDb.1_R1","DXa.1_R1","MDb.1_R1","MDb.1_R1","MDb.1_R1","MDb.1_R1","MDb.1_R1","MDb.1_R1","DXa.1_R1","DXa.1_R1","MDb.2_R1","DXa.1_R1","MDb.2_R1","MDb.2_R1","DXa.2_R1","DXa.3_R1","HYb.3_R1","DXb.3_R1","DXb.1_R1","HYa.1_R1","HYa.1_R1","DXb.1_R1","HYa.1_R1","HYa.1_R1","DXb.1_R1","HYa.1_R1","HYa.1_R1","DXb.1_R1","HYa.1_R1","HYa.1_R1","HYa.1_R1","HYa.1_R1","DXb.1_R1","DXb.1_R1","DXb.1_R1","DXb.1_R1","HYa.2_R1","DXb.1_R1","HYa.2_R1","HYa.1_R1","DXb.3_R1","DXb.3_R1","DXb.3_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.2_R1","DXb.3_R1","DXb.1_R1","DXb.1_R1","DXb.3_R1","DXb.3_R1","DXb.3_R1","DXb.3_R1","DXb.3_R1","DXb.3_R1","DXb.3_R1","HYa.2_R1","HYb.3_R1","HYa.2_R1","HYa.2_R1","HYb.1_R1","HYb.1_R1","HYb.1_R1","HYb.1_R1","DXa.3_R1","HYb.1_R1","DXb.2_R1","DXa.3_R1","HYb.2_R1","DXa.2_R1","HYb.1_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","HYb.2_R1","DXa.2_R1","HYb.2_R1","HYb.1_R1","HYb.1_R1","DXa.3_R1","HYa.2_R1","HYa.2_R1","HYa.2_R1","DXa.3_R1","HYa.3_R1","HYa.3_R1","HYa.3_R1","DXa.3_R1","HYa.3_R1","HYa.3_R1","HYa.3_R1","HYa.3_R1","HYa.3_R1","HYa.3_R1","DXa.3_R1","HYa.3_R1","HYa.3_R1","HYa.3_R1","DXa.3_R1","HYb.1_R1","HYb.1_R1","DXa.3_R1","HYb.1_R1","HYa.2_R1","MDb.3_R1"],"Kingdom":["Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Bacteria","Archaea","Archaea","Archaea","Archaea","Archaea","Archaea","Archaea","Archaea","Archaea","Archaea","Bacteria","Bacteria","Bacteria","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)"],"Phylum":["Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Proteobacteria","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Bacteria_unclassified","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Actinobacteriota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Bacteroidota","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Chloroflexi","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Acidobacteriota","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Firmicutes","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Verrucomicrobiota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Planctomycetota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Desulfobacterota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Myxococcota","Euryarchaeota","Euryarchaeota","Euryarchaeota","Euryarchaeota","Euryarchaeota","Euryarchaeota","Halobacterota","Halobacterota","Halobacterota","Halobacterota","Gemmatimonadota","Gemmatimonadota","Campylobacterota","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)","Others(&lt;1%)"],"bottom":{"__ndarray__":"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","dtype":"float64","order":"little","shape":[360]},"count":[1740,2969,2091,1930,2885,1233,3109,3974,2392,2844,2678,1924,2756,2781,2602,2193,1308,1394,1593,1096,1349,1506,836,1223,1277,1428,1293,1625,1823,1338,1024,1453,1403,1180,1544,107,1148,1863,1355,1552,1337,1370,1113,1086,635,1040,370,829,666,832,725,1918,1374,882,627,1907,1367,755,995,637,465,763,829,409,428,343,873,614,816,707,639,513,854,311,921,203,512,685,533,459,524,510,666,298,356,358,348,539,363,252,495,584,476,693,367,1022,240,95,192,95,1095,482,384,374,133,337,2291,131,188,212,134,293,322,210,339,391,533,167,215,225,181,149,203,350,344,262,404,368,183,261,278,650,179,266,310,185,246,131,213,179,288,235,296,224,246,267,184,88,97,133,178,262,219,413,346,286,105,132,118,95,130,203,117,295,177,589,155,163,104,204,112,176,209,138,443,137,122,101,117,96,207,88,142,168,7,15,28,33,4,4,30,32,23,4,37,48,9,3,3,8,9,4,1,57,31,8,32,14,2,21,10,17,1,6,21,34,9,20,33,15,6,26,3,14,40,40,16,8,31,11,12,5,2,15,2,23,10,9,4,22,6,17,6,9,20,3,3,3,63,11,4,5,7,41,8,33,10,10,4,4,39,6,46,22,17,6,36,23,13,78,4,2,5,7,6,3,5,29,11,44,17,56,9,11,7,17,48,23,3,30,10,6,4,1,5,6,5,4,54,63,3,35,85,69,7,2,4,3,8,78,9,8,19,4,17,11,18,16,7,6,15,28,4,4,19,11,18,12,45,2,7,5,15,23,24,11,15,1,4,5,7,19,47,4,5,49,8,5,27,5,7,12,10,62,11,3,33,23,43,6],"relabund":{"__ndarray__":"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","dtype":"float64","order":"little","shape":[360]},"top":{"__ndarray__":"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","dtype":"float64","order":"little","shape":[360]}},"selected":{"id":"1037"},"selection_policy":{"id":"1050"}},"id":"1036","type":"ColumnDataSource"},{"attributes":{},"id":"1022","type":"SaveTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1005"},{"id":"1022"},{"id":"1023"},{"id":"1024"},{"id":"1025"},{"id":"1026"}]},"id":"1028","type":"Toolbar"},{"attributes":{},"id":"1048","type":"BasicTickFormatter"},{"attributes":{},"id":"1023","type":"PanTool"},{"attributes":{"callback":null,"renderers":[{"id":"1042"}],"tags":["hv_created"],"tooltips":[["Group","@{Group}"],["Phylum","@{Phylum}"],["relabund","@{relabund}"],["count","@{count}"],["Kingdom","@{Kingdom}"]]},"id":"1005","type":"HoverTool"},{"attributes":{"end":0.9999999999999858,"reset_end":0.9999999999999858,"reset_start":0.0,"tags":[[["relabund","relabund",null]]]},"id":"1003","type":"Range1d"},{"attributes":{},"id":"1037","type":"Selection"},{"attributes":{"children":[{"id":"1002"},{"id":"1006"},{"id":"1074"}],"margin":[0,0,0,0],"name":"Row01500","tags":["embedded"]},"id":"1001","type":"Row"},{"attributes":{},"id":"1020","type":"CategoricalTicker"},{"attributes":{"overlay":{"id":"1027"}},"id":"1025","type":"BoxZoomTool"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1027","type":"BoxAnnotation"},{"attributes":{"fill_color":{"field":"Phylum","transform":{"id":"1035"}},"height":{"value":0.8},"left":{"field":"bottom"},"right":{"field":"top"},"y":{"field":"Group"}},"id":"1039","type":"HBar"},{"attributes":{"axis_label":"Group","bounds":"auto","formatter":{"id":"1046"},"major_label_orientation":"horizontal","ticker":{"id":"1020"}},"id":"1019","type":"CategoricalAxis"},{"attributes":{"data_source":{"id":"1036"},"glyph":{"id":"1039"},"hover_glyph":null,"muted_glyph":{"id":"1041"},"nonselection_glyph":{"id":"1040"},"selection_glyph":null,"view":{"id":"1043"}},"id":"1042","type":"GlyphRenderer"},{"attributes":{"axis_label":"relabund","bounds":"auto","formatter":{"id":"1048"},"major_label_orientation":"horizontal","ticker":{"id":"1016"}},"id":"1015","type":"LinearAxis"},{"attributes":{},"id":"1024","type":"WheelZoomTool"},{"attributes":{},"id":"1046","type":"CategoricalTickFormatter"},{"attributes":{},"id":"1026","type":"ResetTool"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"field":"Phylum","transform":{"id":"1035"}},"height":{"value":0.8},"left":{"field":"bottom"},"line_alpha":{"value":0.2},"right":{"field":"top"},"y":{"field":"Group"}},"id":"1041","type":"HBar"},{"attributes":{"axis":{"id":"1015"},"grid_line_color":null,"ticker":null},"id":"1018","type":"Grid"},{"attributes":{"factors":["Acidobacteriota","Actinobacteriota","Others(&lt;1%)","Bacteria_unclassified","Bacteroidota","Chloroflexi","Desulfobacterota","Firmicutes","Myxococcota","Planctomycetota","Proteobacteria","Verrucomicrobiota","Euryarchaeota","Halobacterota","Gemmatimonadota","Campylobacterota"],"palette":["#30a2da","#fc4f30","#e5ae38","#6d904f","#8b8b8b","#17becf","#9467bd","#d62728","#1f77b4","#e377c2","#8c564b","#bcbd22","#30a2da","#fc4f30","#e5ae38","#6d904f"]},"id":"1035","type":"CategoricalColorMapper"},{"attributes":{"margin":[5,5,5,5],"name":"HSpacer01505","sizing_mode":"stretch_width"},"id":"1074","type":"Spacer"},{"attributes":{"text":"","text_color":{"value":"black"},"text_font_size":{"value":"12pt"}},"id":"1007","type":"Title"},{"attributes":{},"id":"1013","type":"CategoricalScale"},{"attributes":{},"id":"1011","type":"LinearScale"},{"attributes":{},"id":"1050","type":"UnionRenderers"},{"attributes":{"factors":["MDb.3_R1","MDb.2_R1","MDb.1_R1","MDa.1_R1","HYb.3_R1","HYb.2_R1","HYb.1_R1","HYa.3_R1","HYa.2_R1","HYa.1_R1","DXb.3_R1","DXb.2_R1","DXb.1_R1","DXa.3_R1","DXa.2_R1","DXa.1_R1"],"tags":[[["Group","Group",null]]]},"id":"1004","type":"FactorRange"},{"attributes":{},"id":"1016","type":"BasicTicker"}],"root_ids":["1001"]},"title":"Bokeh Application","version":"2.1.1"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('1188').textContent;
+                  var render_items = [{"docid":"e1e3a581-b029-407a-91ac-4cc7433c2d95","root_ids":["1001"],"roots":{"1001":"975e09ee-92cf-4358-9001-b14f99f78abb"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
