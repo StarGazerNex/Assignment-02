@@ -12,4 +12,4 @@ This study investigates the microbial diversity and community composition in hum
 
 ## Requirements
 - Sra.tools (3.1.1)
-- 
+- Python (3.12.2)
